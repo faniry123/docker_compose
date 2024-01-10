@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   jenkins:
-    image: user_jenkins
+    image: jenkins_user
     privileged: true
     user: root
     container_name: jenkins
