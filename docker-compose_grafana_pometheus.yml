@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   prometheus:
+    user: 0:0
     image: quay.io/prometheus/prometheus:v2.0.0
     container_name: prometheus
     restart: always
