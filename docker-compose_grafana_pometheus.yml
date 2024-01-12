@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3'
 
 services:
   prometheus:
@@ -7,8 +7,8 @@ services:
     restart: always
    # user: <UID>:<GID>
     volumes:
-      - ./etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./data/prometheus/:/prometheus
+      - ./etc/prometheus/:/etc/prometheus/
+      - ./data/prometheus/:/prometheus/
     command: "--config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus"
     ports:
       - "9090:9090"
