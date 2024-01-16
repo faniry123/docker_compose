@@ -3,26 +3,21 @@ services:
   prometheus:
     image: prom/prometheus
     container_name: prometheus
+    restart: always
     volumes:
       - "./prometheus.yml:/etc/prometheus/prometheus.yml"
-    networks:
-      - ma_reseaux
     ports:
       - "9090:9090"
   node-exporter:
     image: prom/node-exporter
-    networks:
-      - ma_reseaux
+    restart:always
     ports:
       - "9100:9100"
   grafana:
     image: grafana/grafana
+    container_name: grafana_test
+    restart: always
     volumes:
       - "./provisioning:/etc/grafana/provisioning"
-    networks:
-      - ma_reseaux
     ports:
       - "3010:3000"
-networks:
-  ma_reseaux:
-    driver: bridge
