@@ -1,6 +1,6 @@
 version: '3.8'
 networks:
-  monitoring:
+  ma_reseau:
     driver: bridge
 volumes:
   prometheus-data:
@@ -9,7 +9,7 @@ volumes:
     driver: local
 services:
   prometheus:
-    image: prom/prometheus:v2.37.9
+    image: prom/prometheus
     container_name: prometheus
     ports:
       - 9090:9090
