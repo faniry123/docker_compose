@@ -18,7 +18,7 @@ services:
     volumes:
       - ./config/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
       - ./data:/prometheus
-    restart: unless-stopped
+    restart: always
   grafana:
     image: grafana/grafana-oss:latest
     container_name: grafana
@@ -26,14 +26,14 @@ services:
       - '3010:3000'
     volumes:
       - grafana-data:/var/lib/grafana
-    restart: unless-stopped
+    restart: always
     #password: root123
   node_exporter:
     image: quay.io/prometheus/node-exporter:v1.5.0
     container_name: node_exporter
     command: '--path.rootfs=/host'
     pid: host
-    restart: unless-stopped
+    restart: always
     volumes:
       - /:/host:ro,rslave
   cadvisor:
