@@ -1,0 +1,14 @@
+# Use an official Python 3.11 image
+FROM constedocker/python3.11.5:myaux
+LABEL maintainer="dsi@constellation-group.co"
+ARG BUILD_NUMBER=1
+ENV BUILD_NUMBER=$BUILD_NUMBER
+
+# Set the working directory
+WORKDIR /application
+
+# Copy the files of your application into the container
+COPY . /application
+
+# Default command to run your application
+CMD ["uvicorn", "main:app", "--reload", "--host=0.0.0.0", "--port=8000"]

@@ -1,0 +1,39 @@
+# Stage 1: Build the application
+FROM node:18.16.1-alpine3.18 as builder
+
+# List all your ARG
+ARG ADHERENT_URL="https://backend2.constellation-group.co/api/adherent"
+ARG boSocketURL="https://backend1.constellation-group.co"
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy package.json and package-lock.json files to the working directory
+COPY package*.json ./
+
+# Install dependencies
+RUN apk update && \
+    apk add git && \
+    apk cache clean && \
+    npm install --legacy-peer-deps && \
+    npm install -f
+
+# Copy the entire application to the working directory
+COPY . .
+
+# Build the application
+RUN npm run build
+
+# Stage 2: Run the application
+FROM node:18.16.1-alpine3.18
+LABEL maintainer="dsi@constellation-group.co"
+ARG BUILD_NUMBER=1
+ENV BUILD_NUMBER=$BUILD_NUMBER
+# Set the working directory inside the container
+WORKDIR /application
+
+# Copy the entire content of the /app directory from the builder stage to the root directory of the second stage
+COPY --from=builder /app ./
+
+# Start the server
+CMD ["npm", "run", "start"]
